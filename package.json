@@ -1,0 +1,8 @@
+{
+  "name": "elevated-new-user-form",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test --experimental-test-coverage tests/*.test.js"
+  }
+}

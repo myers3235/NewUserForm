@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>New User Request | Elevated MSP</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="brand">
+    <div class="wrap">
+      <span class="logo">ELEVATED</span>
+      <span class="tagline">"We Care More!"</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>New User Request</h1>
+    <p class="intro">
+      Tell us about your new team member and we'll get them set up. When you click
+      <strong>Create email</strong>, your email app opens with the request addressed to
+      <strong>support@elevatedmsp.com</strong>. Just click <strong>Send</strong>.
+    </p>
+    <p class="notice">Please don't include passwords. We'll arrange first-day sign-in details with you directly.</p>
+
+    <form id="request" novalidate>
+      <fieldset>
+        <legend>Your information</legend>
+        <div class="grid">
+          <label>Company name *<input name="companyName" required autocomplete="organization"></label>
+          <label>Your name *<input name="requesterName" required autocomplete="name"></label>
+          <label>Your email *<input name="requesterEmail" type="email" required autocomplete="email"></label>
+          <label>Your phone<input name="requesterPhone" type="tel" autocomplete="tel"></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>New user</legend>
+        <div class="grid">
+          <label>First name *<input name="firstName" required></label>
+          <label>Last name *<input name="lastName" required></label>
+          <label>Preferred name<input name="displayName" placeholder="If different from first name"></label>
+          <label>Job title *<input name="jobTitle" required></label>
+          <label>Department<input name="department"></label>
+          <label>Manager<input name="manager"></label>
+          <label>Start date *<input name="startDate" type="date" required></label>
+          <label>Employment type
+            <select name="employmentType">
+              <option value="">Select…</option>
+              <option>Full-time</option>
+              <option>Part-time</option>
+              <option>Contractor</option>
+              <option>Temporary</option>
+            </select>
+          </label>
+          <label>Work location
+            <select name="location">
+              <option value="">Select…</option>
+              <option>In office</option>
+              <option>Remote</option>
+              <option>Hybrid</option>
+            </select>
+          </label>
+          <label>Who should receive first-day sign-in details?
+            <input name="personalContact" placeholder="e.g. the manager, or a phone number">
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Access</legend>
+        <div class="grid">
+          <label>Microsoft 365 license *
+            <select name="license" required>
+              <option value="">Select…</option>
+              <option>Business Basic</option>
+              <option>Business Standard</option>
+              <option>Business Premium</option>
+              <option>Office 365 E3</option>
+              <option>Microsoft 365 E3</option>
+              <option>Not sure – please advise</option>
+            </select>
+          </label>
+          <label>Give the same access as this existing user
+            <input name="mirrorUser" placeholder="Name of a current employee">
+          </label>
+        </div>
+        <label>Groups, shared mailboxes, or folders<textarea name="groups" rows="2"></textarea></label>
+        <label>Applications they'll need<textarea name="applications" rows="2" placeholder="e.g. QuickBooks, Adobe Acrobat, line-of-business apps"></textarea></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Equipment</legend>
+        <div class="checks">
+          <label><input type="checkbox" name="equipment" value="Laptop"> Laptop</label>
+          <label><input type="checkbox" name="equipment" value="Desktop"> Desktop</label>
+          <label><input type="checkbox" name="equipment" value="Monitor(s)"> Monitor(s)</label>
+          <label><input type="checkbox" name="equipment" value="Docking station"> Docking station</label>
+          <label><input type="checkbox" name="equipment" value="Phone / extension"> Phone / extension</label>
+          <label><input type="checkbox" name="equipment" value="Reusing existing equipment"> Reusing existing equipment</label>
+        </div>
+        <label>Equipment notes<textarea name="equipmentNotes" rows="2"></textarea></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Anything else?</legend>
+        <label>Notes<textarea name="notes" rows="3"></textarea></label>
+      </fieldset>
+
+      <p id="errors" class="errors" role="alert" hidden></p>
+      <button type="submit">Create email</button>
+    </form>
+
+    <section id="done" hidden aria-live="polite">
+      <h2>Almost done: check your email app</h2>
+      <p id="doneMessage">Your email app should have opened with the request ready. Review it and click <strong>Send</strong>.</p>
+      <p>
+        If nothing opened, <button type="button" id="copy">copy the request</button> and paste it into a new email to
+        <a href="mailto:support@elevatedmsp.com">support@elevatedmsp.com</a>.
+        <span id="copied" class="copied" hidden>Copied!</span>
+      </p>
+      <pre id="summary" tabindex="-1"></pre>
+      <p><a id="openAgain" href="#">Open the email again</a> · <button type="button" id="restart" class="link">Start a new request</button></p>
+    </section>
+  </main>
+
+  <footer class="wrap">Elevated MSP · Lemoyne, PA · 800.444.9484 · <a href="https://www.elevatedmsp.com">ElevatedMSP.com</a></footer>
+</body>
+</html>
