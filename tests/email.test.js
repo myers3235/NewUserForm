@@ -1,6 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { buildSubject, buildBody, buildMailto, isTooLong, SUPPORT_EMAIL } from '../site/email.js';
+import {
+  buildSubject, buildBody, buildMailto, isTooLong, suggestUsername, suggestEmail, SUPPORT_EMAIL,
+} from '../site/email.js';
 
 const sample = {
   companyName: 'Contoso Ltd',
@@ -11,7 +13,8 @@ const sample = {
   lastName: 'Rivera',
   jobTitle: 'Accountant',
   startDate: '2026-12-01',
-  equipment: ['Laptop', 'Monitor'],
+  remoteAccess: 'Yes',
+  sharedDrives: 'Accounting share',
   notes: 'Line one\nLine two',
 };
 
@@ -32,14 +35,12 @@ test('body includes filled fields with labels', () => {
   assert.match(body, /Company: Contoso Ltd/);
   assert.match(body, /Requested by: Pat Lee/);
   assert.match(body, /Job title: Accountant/);
+  assert.match(body, /Remote access needed: Yes/);
+  assert.match(body, /Shared drive access: Accounting share/);
 });
 
 test('body omits blank fields', () => {
   assert.doesNotMatch(buildBody(sample), /Phone:/);
-});
-
-test('body joins multi-select values', () => {
-  assert.match(buildBody(sample), /Equipment needed: Laptop, Monitor/);
 });
 
 test('body drops a section whose fields are all blank', () => {
@@ -61,4 +62,26 @@ test('mailto encodes subject and body', () => {
 test('isTooLong flags links over the safe limit', () => {
   assert.equal(isTooLong('x'.repeat(1800)), false);
   assert.equal(isTooLong('x'.repeat(1801)), true);
+});
+
+test('suggestUsername builds first.last in lowercase', () => {
+  assert.equal(suggestUsername('Sam', 'Rivera'), 'sam.rivera');
+});
+
+test('suggestUsername strips spaces, apostrophes, and accents', () => {
+  assert.equal(suggestUsername(' Mary Ann ', "O'Brien-Núñez"), 'maryann.obrien-nunez');
+});
+
+test('suggestUsername is empty until both names exist', () => {
+  assert.equal(suggestUsername('Sam', ''), '');
+  assert.equal(suggestUsername('', 'Rivera'), '');
+});
+
+test('suggestEmail uses the requester company domain', () => {
+  assert.equal(suggestEmail('sam.rivera', 'pat@contoso.example'), 'sam.rivera@contoso.example');
+});
+
+test('suggestEmail is empty without a username or a valid requester email', () => {
+  assert.equal(suggestEmail('', 'pat@contoso.example'), '');
+  assert.equal(suggestEmail('sam.rivera', 'not-an-email'), '');
 });

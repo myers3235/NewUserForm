@@ -9,123 +9,173 @@
   <script type="module" src="app.js"></script>
 </head>
 <body>
-  <header class="brand">
-    <div class="wrap">
-      <span class="logo">ELEVATED</span>
-      <span class="tagline">"We Care More!"</span>
-    </div>
-  </header>
+  <main class="card">
+    <header class="brand">
+      <div class="logo" role="img" aria-label="Elevated MSP">
+        <svg viewBox="0 0 300 70" aria-hidden="true">
+          <defs>
+            <linearGradient id="peak" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="#4a6cf7"/><stop offset="1" stop-color="#1d2fa8"/>
+            </linearGradient>
+          </defs>
+          <path d="M2 68 L42 46 L58 54 L98 8 L128 44 L146 36 L170 58 L196 40 L214 52 L240 46 L298 68
+                   L240 52 L214 58 L196 48 L170 64 L146 44 L128 52 L98 18 L58 60 L42 52 Z" fill="url(#peak)"/>
+        </svg>
+        <span class="wordmark">ELEVATED<small>MSP</small></span>
+        <span class="tagline">“We care more!”</span>
+      </div>
+    </header>
 
-  <main class="wrap">
-    <h1>New User Request</h1>
-    <p class="intro">
-      Tell us about your new team member and we'll get them set up. When you click
-      <strong>Create email</strong>, your email app opens with the request addressed to
-      <strong>support@elevatedmsp.com</strong>. Just click <strong>Send</strong>.
-    </p>
-    <p class="notice">Please don't include passwords. We'll arrange first-day sign-in details with you directly.</p>
-
-    <form id="request" novalidate>
-      <fieldset>
-        <legend>Your information</legend>
-        <div class="grid">
-          <label>Company name *<input name="companyName" required autocomplete="organization"></label>
-          <label>Your name *<input name="requesterName" required autocomplete="name"></label>
-          <label>Your email *<input name="requesterEmail" type="email" required autocomplete="email"></label>
-          <label>Your phone<input name="requesterPhone" type="tel" autocomplete="tel"></label>
-        </div>
-      </fieldset>
-
-      <fieldset>
-        <legend>New user</legend>
-        <div class="grid">
-          <label>First name *<input name="firstName" required></label>
-          <label>Last name *<input name="lastName" required></label>
-          <label>Preferred name<input name="displayName" placeholder="If different from first name"></label>
-          <label>Job title *<input name="jobTitle" required></label>
-          <label>Department<input name="department"></label>
-          <label>Manager<input name="manager"></label>
-          <label>Start date *<input name="startDate" type="date" required></label>
-          <label>Employment type
-            <select name="employmentType">
-              <option value="">Select…</option>
-              <option>Full-time</option>
-              <option>Part-time</option>
-              <option>Contractor</option>
-              <option>Temporary</option>
-            </select>
-          </label>
-          <label>Work location
-            <select name="location">
-              <option value="">Select…</option>
-              <option>In office</option>
-              <option>Remote</option>
-              <option>Hybrid</option>
-            </select>
-          </label>
-          <label>Who should receive first-day sign-in details?
-            <input name="personalContact" placeholder="e.g. the manager, or a phone number">
-          </label>
-        </div>
-      </fieldset>
-
-      <fieldset>
-        <legend>Access</legend>
-        <div class="grid">
-          <label>Microsoft 365 license *
-            <select name="license" required>
-              <option value="">Select…</option>
-              <option>Business Basic</option>
-              <option>Business Standard</option>
-              <option>Business Premium</option>
-              <option>Office 365 E3</option>
-              <option>Microsoft 365 E3</option>
-              <option>Not sure – please advise</option>
-            </select>
-          </label>
-          <label>Give the same access as this existing user
-            <input name="mirrorUser" placeholder="Name of a current employee">
-          </label>
-        </div>
-        <label>Groups, shared mailboxes, or folders<textarea name="groups" rows="2"></textarea></label>
-        <label>Applications they'll need<textarea name="applications" rows="2" placeholder="e.g. QuickBooks, Adobe Acrobat, line-of-business apps"></textarea></label>
-      </fieldset>
-
-      <fieldset>
-        <legend>Equipment</legend>
-        <div class="checks">
-          <label><input type="checkbox" name="equipment" value="Laptop"> Laptop</label>
-          <label><input type="checkbox" name="equipment" value="Desktop"> Desktop</label>
-          <label><input type="checkbox" name="equipment" value="Monitor(s)"> Monitor(s)</label>
-          <label><input type="checkbox" name="equipment" value="Docking station"> Docking station</label>
-          <label><input type="checkbox" name="equipment" value="Phone / extension"> Phone / extension</label>
-          <label><input type="checkbox" name="equipment" value="Reusing existing equipment"> Reusing existing equipment</label>
-        </div>
-        <label>Equipment notes<textarea name="equipmentNotes" rows="2"></textarea></label>
-      </fieldset>
-
-      <fieldset>
-        <legend>Anything else?</legend>
-        <label>Notes<textarea name="notes" rows="3"></textarea></label>
-      </fieldset>
-
-      <p id="errors" class="errors" role="alert" hidden></p>
-      <button type="submit">Create email</button>
-    </form>
-
-    <section id="done" hidden aria-live="polite">
-      <h2>Almost done: check your email app</h2>
-      <p id="doneMessage">Your email app should have opened with the request ready. Review it and click <strong>Send</strong>.</p>
-      <p>
-        If nothing opened, <button type="button" id="copy">copy the request</button> and paste it into a new email to
-        <a href="mailto:support@elevatedmsp.com">support@elevatedmsp.com</a>.
-        <span id="copied" class="copied" hidden>Copied!</span>
+    <div class="content">
+      <p class="intro">
+        Welcome to the new user onboarding process! Please complete this form to help us set up accounts, access,
+        and resources for your new team member. When you click <strong>Submit</strong>, your email app opens with the
+        request addressed to <strong>support@elevatedmsp.com</strong>. Just click <strong>Send</strong>.
       </p>
-      <pre id="summary" tabindex="-1"></pre>
-      <p><a id="openAgain" href="#">Open the email again</a> · <button type="button" id="restart" class="link">Start a new request</button></p>
-    </section>
+
+      <form id="request" novalidate>
+        <h2 class="bar">New User Information</h2>
+
+        <div class="field">
+          <label for="companyName">Company Name<span class="req">*</span></label>
+          <input id="companyName" name="companyName" required autocomplete="organization">
+          <p class="msg">Value is required.</p>
+        </div>
+        <div class="field">
+          <label for="requesterName">Requester Name<span class="req">*</span></label>
+          <input id="requesterName" name="requesterName" required autocomplete="name">
+          <p class="msg">Value is required.</p>
+        </div>
+        <div class="field">
+          <label for="requesterEmail">Requester Email<span class="req">*</span></label>
+          <input id="requesterEmail" name="requesterEmail" type="email" required autocomplete="email">
+          <p class="msg">Please enter a valid email address.</p>
+        </div>
+        <div class="field">
+          <label for="requesterPhone">Requester Phone Number<span class="req">*</span></label>
+          <input id="requesterPhone" name="requesterPhone" type="tel" required autocomplete="tel">
+          <p class="msg">Value is required.</p>
+        </div>
+        <div class="field">
+          <label for="firstName">New User First Name<span class="req">*</span></label>
+          <input id="firstName" name="firstName" required>
+          <p class="msg">Value is required.</p>
+        </div>
+        <div class="field">
+          <label for="lastName">New User Last Name<span class="req">*</span></label>
+          <input id="lastName" name="lastName" required>
+          <p class="msg">Value is required.</p>
+        </div>
+        <div class="field">
+          <label for="jobTitle">Job Title<span class="req">*</span></label>
+          <p class="hint" id="jobTitleHint">Specify the new employee's role or position.</p>
+          <input id="jobTitle" name="jobTitle" required aria-describedby="jobTitleHint">
+          <p class="msg">Value is required.</p>
+        </div>
+        <div class="field">
+          <label for="manager">Manager Name<span class="req">*</span></label>
+          <p class="hint" id="managerHint">Who will the new employee report to?</p>
+          <input id="manager" name="manager" required aria-describedby="managerHint">
+          <p class="msg">Value is required.</p>
+        </div>
+        <div class="field">
+          <label for="startDate">Start Date<span class="req">*</span></label>
+          <input id="startDate" name="startDate" type="date" required class="short">
+          <p class="msg">Value is required.</p>
+        </div>
+        <div class="field">
+          <label for="username">Username<span class="req">*</span></label>
+          <p class="hint" id="usernameHint">Format: first name.last name (e.g., john.doe). Autofilled, please change as necessary.</p>
+          <input id="username" name="username" required aria-describedby="usernameHint" autocapitalize="off" spellcheck="false">
+          <p class="msg">Value is required.</p>
+        </div>
+        <div class="field">
+          <label for="newEmail">Email</label>
+          <p class="hint" id="newEmailHint">Autofilled from your company's email domain, please change as necessary.</p>
+          <input id="newEmail" name="newEmail" type="email" aria-describedby="newEmailHint" autocapitalize="off" spellcheck="false">
+          <p class="msg">Please enter a valid email address.</p>
+        </div>
+
+        <fieldset class="field">
+          <legend>Does this user need access to additional mailboxes?<span class="req">*</span></legend>
+          <label class="choice"><input type="radio" name="additionalMailboxes" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="additionalMailboxes" value="No"> No</label>
+          <p class="msg">Value is required.</p>
+        </fieldset>
+        <div class="field follow" data-when="additionalMailboxes=Yes" hidden>
+          <label for="mailboxes">Which mailboxes?<span class="req">*</span></label>
+          <p class="hint" id="mailboxesHint">e.g., info@, billing@, or a coworker's mailbox.</p>
+          <input id="mailboxes" name="mailboxes" required disabled aria-describedby="mailboxesHint">
+          <p class="msg">Value is required.</p>
+        </div>
+
+        <div class="field">
+          <label for="cellPhone">Cell Phone Number</label>
+          <p class="hint" id="cellPhoneHint">Required for multi-factor authentication (MFA) enrollment.</p>
+          <input id="cellPhone" name="cellPhone" type="tel" aria-describedby="cellPhoneHint">
+        </div>
+
+        <fieldset class="field">
+          <legend>Is Remote Access Needed?<span class="req">*</span></legend>
+          <p class="hint">Will the employee require remote system access?</p>
+          <label class="choice"><input type="radio" name="remoteAccess" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="remoteAccess" value="No"> No</label>
+          <p class="msg">Value is required.</p>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend>Mirror User Access<span class="req">*</span></legend>
+          <p class="hint">Is there a user that the new employee can have their permissions mirrored from?</p>
+          <label class="choice"><input type="radio" name="mirrorAccess" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="mirrorAccess" value="No"> No</label>
+          <p class="msg">Value is required.</p>
+        </fieldset>
+        <div class="field follow" data-when="mirrorAccess=Yes" hidden>
+          <label for="mirrorUser">Which user should we mirror?<span class="req">*</span></label>
+          <input id="mirrorUser" name="mirrorUser" required disabled>
+          <p class="msg">Value is required.</p>
+        </div>
+
+        <div class="field">
+          <label for="sharedDrives">Shared Drive Access<span class="req">*</span></label>
+          <p class="hint" id="sharedDrivesHint">List the shared drives or folders they need, or write "None".</p>
+          <textarea id="sharedDrives" name="sharedDrives" rows="2" required aria-describedby="sharedDrivesHint"></textarea>
+          <p class="msg">Value is required.</p>
+        </div>
+        <div class="field">
+          <label for="emailGroups">Email Group Membership</label>
+          <p class="hint" id="emailGroupsHint">Distribution lists or Microsoft 365 groups to join.</p>
+          <textarea id="emailGroups" name="emailGroups" rows="2" aria-describedby="emailGroupsHint"></textarea>
+        </div>
+        <div class="field">
+          <label for="applications">Application Access</label>
+          <p class="hint" id="applicationsHint">Software or line-of-business applications they'll need.</p>
+          <textarea id="applications" name="applications" rows="2" aria-describedby="applicationsHint"></textarea>
+        </div>
+        <div class="field">
+          <label for="notes">Additional Comments or Special Requests</label>
+          <p class="hint" id="notesHint">Let us know if there are any unique needs or notes for this onboarding. Please don't include passwords.</p>
+          <textarea id="notes" name="notes" rows="4" aria-describedby="notesHint"></textarea>
+        </div>
+
+        <p id="errors" class="errors" role="alert" hidden>Please complete the highlighted fields.</p>
+        <div class="actions"><button type="submit">Submit</button></div>
+      </form>
+
+      <section id="done" hidden aria-live="polite">
+        <h2 class="bar">Almost done: check your email app</h2>
+        <p id="doneMessage"></p>
+        <p>
+          If nothing opened, <button type="button" id="copy" class="link">copy the request</button> and paste it into a
+          new email to <a href="mailto:support@elevatedmsp.com">support@elevatedmsp.com</a>.
+          <span id="copied" class="copied" hidden>Copied!</span>
+        </p>
+        <pre id="summary" tabindex="-1"></pre>
+        <p><a id="openAgain" href="#">Open the email again</a> · <button type="button" id="restart" class="link">Start a new request</button></p>
+      </section>
+    </div>
   </main>
 
-  <footer class="wrap">Elevated MSP · Lemoyne, PA · 800.444.9484 · <a href="https://www.elevatedmsp.com">ElevatedMSP.com</a></footer>
+  <footer>Elevated MSP · Lemoyne, PA · 800.444.9484 · <a href="https://www.elevatedmsp.com">ElevatedMSP.com</a></footer>
 </body>
 </html>

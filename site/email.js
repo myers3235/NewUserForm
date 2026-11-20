@@ -15,32 +15,29 @@ const SECTIONS = [
   ['NEW USER', [
     ['firstName', 'First name'],
     ['lastName', 'Last name'],
-    ['displayName', 'Preferred name'],
     ['jobTitle', 'Job title'],
-    ['department', 'Department'],
     ['manager', 'Manager'],
     ['startDate', 'Start date'],
-    ['employmentType', 'Employment type'],
-    ['location', 'Work location'],
-    ['personalContact', 'Contact for first-day credentials'],
+    ['username', 'Username'],
+    ['newEmail', 'Email address'],
+    ['cellPhone', 'Cell phone (for MFA setup)'],
   ]],
   ['ACCESS', [
-    ['license', 'Microsoft 365 license'],
-    ['mirrorUser', 'Match access of existing user'],
-    ['groups', 'Groups / shared mailboxes / folders'],
+    ['additionalMailboxes', 'Needs additional mailboxes'],
+    ['mailboxes', 'Mailboxes'],
+    ['remoteAccess', 'Remote access needed'],
+    ['mirrorAccess', 'Mirror an existing user'],
+    ['mirrorUser', 'Mirror from'],
+    ['sharedDrives', 'Shared drive access'],
+    ['emailGroups', 'Email groups'],
     ['applications', 'Applications'],
   ]],
-  ['EQUIPMENT', [
-    ['equipment', 'Equipment needed'],
-    ['equipmentNotes', 'Equipment notes'],
-  ]],
   ['OTHER', [
-    ['notes', 'Notes'],
+    ['notes', 'Additional comments'],
   ]],
 ];
 
-const clean = (value) =>
-  (Array.isArray(value) ? value.join(', ') : String(value ?? '')).trim();
+const clean = (value) => String(value ?? '').trim();
 
 export function buildSubject(data) {
   const name = `${clean(data.firstName)} ${clean(data.lastName)}`.trim();
@@ -67,3 +64,19 @@ export function buildMailto(subject, body) {
 }
 
 export const isTooLong = (url) => url.length > MAILTO_SAFE_LENGTH;
+
+// "Mary Ann" + "O'Brien-Núñez" -> "maryann.obrien-nunez"
+const namePart = (name) =>
+  clean(name).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9-]/g, '');
+
+export function suggestUsername(firstName, lastName) {
+  const first = namePart(firstName);
+  const last = namePart(lastName);
+  return first && last ? `${first}.${last}` : '';
+}
+
+// Uses the requester's own email domain, since new users usually share it.
+export function suggestEmail(username, requesterEmail) {
+  const domain = clean(requesterEmail).match(/^[^@\s]+@([^@\s]+\.[^@\s]+)$/)?.[1];
+  return username && domain ? `${username}@${domain}` : '';
+}
